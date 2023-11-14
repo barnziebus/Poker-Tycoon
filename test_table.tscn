@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4uch30dhuc7v"]
+
+[ext_resource type="Texture2D" uid="uid://doogvnwy0irl2" path="res://Assets/SpriteSheets/Test Table 001.png" id="1_6rooq"]
+
+[node name="test_table" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_6rooq")
