@@ -1,10 +1,13 @@
 extends CharacterBody2D
 
 @export var movement_speed: float = 50.0
-
 @export var map_size: Vector2 = Vector2(320, 320) #map size in px
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+@onready var sprite: AnimatedSprite2D = $AniSprite2D
+
+var action = 'walking'
+var states = ["wandering", "walking to seat", "leaving", "playing"]
 
 func _ready():
 	randomize()
@@ -26,11 +29,42 @@ func set_movement_target(movement_target: Vector2):
 
 func _physics_process(delta):
 	if navigation_agent.is_navigation_finished():
-		var random = RandomNumberGenerator.new()
-		random.randomize()
-		var target_position = Vector2(randi_range(0, map_size.x), randi_range(0, map_size.y))
-		set_movement_target(target_position)
+		if action == 'targetting':
+			action = 'sitting-left'
+		else:
+			var random = RandomNumberGenerator.new()
+			random.randomize()
+			var target_position = Vector2(randi_range(0, map_size.x), randi_range(0, map_size.y))
+			set_movement_target(target_position)
+	
+	if action == "walking" or action == "targetting":
+		move()
+	
+	aninmaiton_handler()
 
+
+func aninmaiton_handler():
+	if action == "walking" or action == "targetting":
+		if velocity.x > 0:
+			sprite.play("walk-right")
+			z_index = 0
+		else:
+			sprite.play("walk-left")
+			z_index = 0
+	
+	elif action == "sitting-right":
+		sprite.play("sitting-right")
+		z_index = 1
+	elif action == "sitting-left":
+		sprite.play("sitting-left")
+		z_index = 1
+	elif action == "sitting-up":
+		sprite.play("sitting-up")
+	elif action == "sitting-down":
+		sprite.play("sitting-down")
+
+
+func move():
 	var current_agent_position: Vector2 = global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 
@@ -42,7 +76,15 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-
 func _input(event):
 	if event.is_action_pressed("left-click"):
 		set_movement_target(get_global_mouse_position())
+
+
+func move_to_seat(seat_node: Node2D) -> void:
+	var offset = Vector2(0,0) #used for sprite alignment as required
+	
+	action = 'moving to seat'
+	
+	set_movement_target(seat_node.position + offset)
+	

@@ -1,7 +1,82 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqn0ki8jevmv1"]
+[gd_scene load_steps=11 format=3 uid="uid://cqn0ki8jevmv1"]
 
-[ext_resource type="Texture2D" uid="uid://c0y5kroii24if" path="res://Assets/SpriteSheets/Test Char 001.png" id="1_n5fgb"]
 [ext_resource type="Script" path="res://test_npc.gd" id="1_ttbwr"]
+[ext_resource type="Texture2D" uid="uid://lhdbbv1wv2bb" path="res://Assets/SpriteSheets/spritesheet-combined.png" id="2_3b5et"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vqyl"]
+atlas = ExtResource("2_3b5et")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imj0j"]
+atlas = ExtResource("2_3b5et")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w74oe"]
+atlas = ExtResource("2_3b5et")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myux8"]
+atlas = ExtResource("2_3b5et")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1dte"]
+atlas = ExtResource("2_3b5et")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7vqo"]
+atlas = ExtResource("2_3b5et")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xxb20"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vqyl")
+}],
+"loop": true,
+"name": &"sitting-down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imj0j")
+}],
+"loop": true,
+"name": &"sitting-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w74oe")
+}],
+"loop": true,
+"name": &"sitting-right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myux8")
+}],
+"loop": true,
+"name": &"sitting-up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1dte")
+}],
+"loop": true,
+"name": &"walk-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7vqo")
+}],
+"loop": true,
+"name": &"walk-right",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wxkbn"]
 radius = 5.0
@@ -10,11 +85,13 @@ height = 10.0
 [node name="TestNPC" type="CharacterBody2D"]
 script = ExtResource("1_ttbwr")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -14)
-texture = ExtResource("1_n5fgb")
+[node name="AniSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_xxb20")
+animation = &"walk-right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_wxkbn")
 one_way_collision = true
 

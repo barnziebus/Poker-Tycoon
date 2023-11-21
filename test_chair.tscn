@@ -1,0 +1,101 @@
+[gd_scene load_steps=11 format=3 uid="uid://cheelfksmroed"]
+
+[ext_resource type="Script" path="res://test-chair.gd" id="1_ky5ux"]
+[ext_resource type="Texture2D" uid="uid://lhdbbv1wv2bb" path="res://Assets/SpriteSheets/spritesheet-combined.png" id="2_h1i01"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8upn"]
+atlas = ExtResource("2_h1i01")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwmth"]
+atlas = ExtResource("2_h1i01")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r24u"]
+atlas = ExtResource("2_h1i01")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43edc"]
+atlas = ExtResource("2_h1i01")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v1x34"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8upn")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwmth")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7r24u")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43edc")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwril"]
+atlas = ExtResource("2_h1i01")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w2y6l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwril")
+}],
+"loop": true,
+"name": &"chair-back",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46syh"]
+radius = 6.0
+
+[node name="test-chair" type="Area2D"]
+position = Vector2(0, -7)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ky5ux")
+
+[node name="chair-sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_v1x34")
+animation = &"up"
+
+[node name="chair-back-sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_w2y6l")
+animation = &"chair-back"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_46syh")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
