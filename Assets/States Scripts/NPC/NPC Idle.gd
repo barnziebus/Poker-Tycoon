@@ -22,7 +22,7 @@ func Enter():
 	
 	navigation.path_desired_distance = 4.0
 	navigation.target_desired_distance = 20.0
-	navigation.debug_enabled = true
+	#navigation.debug_enabled = true
 	
 	randomize_wander()
 

@@ -9,12 +9,14 @@ var facing = 'right'
 var timer = 3
 
 func Enter():
-	_NPC.seat.open = false
+	facing = _NPC.seat.chair_direction
 	timer = 10
-	animation_controller()
+	
+	_NPC.seat.open = false
 	_NPC.position = _NPC.seat.global_position
 	_NPC.velocity = Vector2.ZERO
-
+	
+	animation_controller()
 
 func Exit():
 	_NPC.seat.open = true
@@ -35,4 +37,11 @@ func animation_controller():
 	var animation_names = sprite.sprite_frames.get_animation_names()
 	if facing == "right" and "playing-right" in animation_names:
 		sprite.play('playing-right')
+	if facing == "left" and "playing-left" in animation_names:
+		sprite.play('playing-left')
+	if facing == "up" and "playing-up" in animation_names:
+		sprite.play('playing-up')
+	if facing == "down" and "playing-down" in animation_names:
+		sprite.play('playing-down')
+
 	

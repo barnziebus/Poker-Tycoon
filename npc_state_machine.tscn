@@ -1,16 +1,28 @@
-[gd_scene load_steps=13 format=3 uid="uid://wfr3shm6r5o3"]
+[gd_scene load_steps=16 format=3 uid="uid://7qnl8b3wxcgr"]
 
 [ext_resource type="Script" path="res://npc_state_machine.gd" id="1_uxqr1"]
 [ext_resource type="Texture2D" uid="uid://lhdbbv1wv2bb" path="res://Assets/SpriteSheets/spritesheet-combined.png" id="2_4cgkc"]
-[ext_resource type="Script" path="res://Assets/States Scripts/State Machine.gd" id="3_3g5b2"]
-[ext_resource type="Script" path="res://Assets/States Scripts/NPC Idle.gd" id="4_whv44"]
-[ext_resource type="Script" path="res://Assets/States Scripts/NPC Playing.gd" id="5_mw825"]
-[ext_resource type="Script" path="res://Assets/States Scripts/NPC Leaving.gd" id="6_ayafn"]
-[ext_resource type="Script" path="res://Assets/States Scripts/NPC MoveToSeat.gd" id="7_33pnt"]
+[ext_resource type="Script" path="res://Assets/States Scripts/Controllers/State Machine.gd" id="3_wmene"]
+[ext_resource type="Script" path="res://Assets/States Scripts/NPC/NPC Idle.gd" id="4_ldwdm"]
+[ext_resource type="Script" path="res://Assets/States Scripts/NPC/NPC Playing.gd" id="5_no7k5"]
+[ext_resource type="Script" path="res://Assets/States Scripts/NPC/NPC Leaving.gd" id="6_qumic"]
+[ext_resource type="Script" path="res://Assets/States Scripts/NPC/NPC MoveToSeat.gd" id="7_234ad"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_basch"]
+atlas = ExtResource("2_4cgkc")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh7yd"]
+atlas = ExtResource("2_4cgkc")
+region = Rect2(64, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qnsm0"]
 atlas = ExtResource("2_4cgkc")
 region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwt4f"]
+atlas = ExtResource("2_4cgkc")
+region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i5ry2"]
 atlas = ExtResource("2_4cgkc")
@@ -24,10 +36,34 @@ region = Rect2(128, 64, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_basch")
+}],
+"loop": true,
+"name": &"playing-down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oh7yd")
+}],
+"loop": true,
+"name": &"playing-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qnsm0")
 }],
 "loop": true,
 "name": &"playing-right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwt4f")
+}],
+"loop": true,
+"name": &"playing-up",
 "speed": 5.0
 }, {
 "frames": [{
@@ -57,35 +93,35 @@ script = ExtResource("1_uxqr1")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_0i2pw")
-animation = &"walk-left"
+animation = &"playing-down"
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gj843")
 one_way_collision = true
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_3g5b2")
+script = ExtResource("3_wmene")
 initial_state = NodePath("NPCIdle")
 
 [node name="NPCIdle" type="Node" parent="State Machine" node_paths=PackedStringArray("_NPC", "navigation", "sprite")]
-script = ExtResource("4_whv44")
+script = ExtResource("4_ldwdm")
 _NPC = NodePath("../..")
 navigation = NodePath("../../Navigation")
 sprite = NodePath("../../Sprite")
 
 [node name="NPCPlaying" type="Node" parent="State Machine" node_paths=PackedStringArray("_NPC", "sprite")]
-script = ExtResource("5_mw825")
+script = ExtResource("5_no7k5")
 _NPC = NodePath("../..")
 sprite = NodePath("../../Sprite")
 
 [node name="NPCLeaving" type="Node" parent="State Machine" node_paths=PackedStringArray("_NPC", "navigation", "sprite")]
-script = ExtResource("6_ayafn")
+script = ExtResource("6_qumic")
 _NPC = NodePath("../..")
 navigation = NodePath("../../Navigation")
 sprite = NodePath("../../Sprite")
 
 [node name="NPCMoveToSeat" type="Node" parent="State Machine" node_paths=PackedStringArray("_NPC", "navigation", "sprite")]
-script = ExtResource("7_33pnt")
+script = ExtResource("7_234ad")
 _NPC = NodePath("../..")
 navigation = NodePath("../../Navigation")
 sprite = NodePath("../../Sprite")

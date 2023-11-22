@@ -45,23 +45,27 @@ script = ExtResource("1_cqgpc")
 y_sort_enabled = true
 
 [node name="test-chair" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
-position = Vector2(104, 104)
-chair_direction = "right"
+position = Vector2(104, 103)
 map = NodePath("../../TileMap")
 
 [node name="test-chair3" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
-position = Vector2(88, 89)
+position = Vector2(88, 87)
 chair_direction = "right"
+map = NodePath("../../TileMap")
+
+[node name="test-chair5" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
+position = Vector2(152, 87)
+chair_direction = "left"
 map = NodePath("../../TileMap")
 
 [node name="test-chair4" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
-position = Vector2(120, 73)
-chair_direction = "right"
+position = Vector2(120, 71)
+chair_direction = "down"
 map = NodePath("../../TileMap")
 
 [node name="test-chair2" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
-position = Vector2(104, 72)
-chair_direction = "right"
+position = Vector2(104, 71)
+chair_direction = "down"
 map = NodePath("../../TileMap")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -77,4 +81,4 @@ position = Vector2(98, 79)
 zoom = Vector2(2, 2)
 
 [node name="test_table" parent="." instance=ExtResource("5_vhc14")]
-position = Vector2(120, 87)
+position = Vector2(120, 85)
