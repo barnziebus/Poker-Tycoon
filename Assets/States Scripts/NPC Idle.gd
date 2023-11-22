@@ -37,18 +37,17 @@ func actor_setup():
 
 
 func Update(delta: float):
-	var npc_seat = _NPC.seat
-	if npc_seat:
-		if npc_seat.open:
-			Transitioned.emit(self, "NPCMoveToSeat")
+	var seat = find_seat()
+
 
 
 func Physics_Update(delta: float):
 	if _NPC:
 		if navigation.is_navigation_finished():
-			if _NPC.seat.open:
-				print("NPC has seat")
-				Transitioned.emit(self, "NPCMoveToSeat")
+			if _NPC.seat:
+				if _NPC.seat.open:
+					print("NPC has seat")
+					Transitioned.emit(self, "NPCMoveToSeat")
 			else:
 				randomize_wander()
 		
@@ -73,3 +72,13 @@ func move():
 	new_velocity = new_velocity * move_speed
 	
 	_NPC.velocity = new_velocity
+
+
+func find_seat():
+	var chairs = get_tree().get_nodes_in_group("chairs")
+	for seat in chairs:
+		if seat.open:
+			_NPC.seat = seat
+			seat.open = false
+			Transitioned.emit(self, "NPCMoveToSeat")
+			return seat

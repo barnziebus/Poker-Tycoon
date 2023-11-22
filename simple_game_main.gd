@@ -3,7 +3,7 @@ extends Node2D
 var next_open_seat = null
 var open_seat: bool = false
 
-var respawn = 0.5
+var respawn = 0.1
 var npc_scene = preload("res://npc_state_machine.tscn")
 var npcs = []
 
@@ -15,7 +15,7 @@ func _process(delta):
 	respawn -= delta
 	#print(respawn)
 	if respawn < 0:
-		respawn = randi_range(5,20)
+		respawn = randi_range(1,10)
 		var instance = npc_scene.instantiate()
 		instance.add_to_group('npcs')
 		npcs.append(instance)

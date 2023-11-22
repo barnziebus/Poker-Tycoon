@@ -10,6 +10,8 @@ var target_position: Vector2
 @export var move_speed := 30.0
 @export var sprite: AnimatedSprite2D
 
+@export var leave_position: Vector2 = Vector2(60,60)
+
 
 func Enter():
 	call_deferred("actor_setup")
@@ -29,7 +31,7 @@ func Exit():
 
 func Update(delta: float):
 	if navigation.is_navigation_finished():
-		Transitioned.emit(self, "NPCIdle")
+		_NPC.queue_free()
 
 
 func Physics_Update(delta: float):
@@ -45,7 +47,8 @@ func actor_setup():
 
 
 func leave():
-	navigation.target_position = Vector2(0, 0)
+	navigation.target_position = leave_position
+
 
 
 func animation_handler():
