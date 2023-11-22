@@ -10,7 +10,6 @@ var target_position: Vector2
 @export var move_speed := 30.0
 @export var sprite: AnimatedSprite2D
 
-signal look_for_empty_seat()
 
 func randomize_wander():
 	var random_x = randi_range(0,200)
@@ -25,12 +24,11 @@ func Enter():
 	navigation.target_desired_distance = 20.0
 	navigation.debug_enabled = true
 	
-	look_for_empty_seat.emit()
 	randomize_wander()
 
 
 func Exit():
-	_NPC.velocity = Vector2.ZERO
+	_NPC.velocity = Vector2(200,200)
 
 
 func actor_setup():
@@ -39,16 +37,20 @@ func actor_setup():
 
 
 func Update(delta: float):
-	print(_NPC.seat)
+	var npc_seat = _NPC.seat
+	if npc_seat:
+		if npc_seat.open:
+			Transitioned.emit(self, "NPCMoveToSeat")
 
 
 func Physics_Update(delta: float):
 	if _NPC:
 		if navigation.is_navigation_finished():
-			randomize_wander()
-		
-		if _NPC.seat.open:
-			Transitioned.emit(self, "NPCMoveToSeat")
+			if _NPC.seat.open:
+				print("NPC has seat")
+				Transitioned.emit(self, "NPCMoveToSeat")
+			else:
+				randomize_wander()
 		
 		move()
 	

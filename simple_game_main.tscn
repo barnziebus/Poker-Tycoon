@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cs8m8tiipv7y3"]
+[gd_scene load_steps=10 format=3 uid="uid://cs8m8tiipv7y3"]
 
 [ext_resource type="Script" path="res://simple_game_main.gd" id="1_cqgpc"]
 [ext_resource type="Texture2D" uid="uid://cwex004w242ce" path="res://Assets/SpriteSheets/Test Tiles 001.png" id="1_vcjnw"]
 [ext_resource type="Script" path="res://TileMap.gd" id="2_m4j4q"]
 [ext_resource type="PackedScene" uid="uid://cheelfksmroed" path="res://test_chair.tscn" id="3_f1cgh"]
-[ext_resource type="PackedScene" uid="uid://wfr3shm6r5o3" path="res://npc_state_machine.tscn" id="5_hytfb"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tg8fq"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -41,25 +40,25 @@ sources/0 = SubResource("TileSetAtlasSource_f5v1f")
 y_sort_enabled = true
 script = ExtResource("1_cqgpc")
 
-[node name="y-sort" type="Node2D" parent="."]
+[node name="chairs" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="test-chair" parent="y-sort" node_paths=PackedStringArray("map") instance=ExtResource("3_f1cgh")]
+[node name="test-chair" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
 position = Vector2(25, 166)
 chair_direction = "right"
 map = NodePath("../../TileMap")
 
-[node name="test-chair3" parent="y-sort" node_paths=PackedStringArray("map") instance=ExtResource("3_f1cgh")]
+[node name="test-chair3" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
 position = Vector2(104, 134)
 chair_direction = "right"
 map = NodePath("../../TileMap")
 
-[node name="test-chair4" parent="y-sort" node_paths=PackedStringArray("map") instance=ExtResource("3_f1cgh")]
+[node name="test-chair4" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
 position = Vector2(120, 73)
 chair_direction = "right"
 map = NodePath("../../TileMap")
 
-[node name="test-chair2" parent="y-sort" node_paths=PackedStringArray("map") instance=ExtResource("3_f1cgh")]
+[node name="test-chair2" parent="chairs" node_paths=PackedStringArray("map") groups=["chairs"] instance=ExtResource("3_f1cgh")]
 position = Vector2(72, 23)
 chair_direction = "right"
 map = NodePath("../../TileMap")
@@ -75,20 +74,3 @@ script = ExtResource("2_m4j4q")
 y_sort_enabled = true
 position = Vector2(98, 79)
 zoom = Vector2(2, 2)
-
-[node name="NPC_State-Machine" parent="." instance=ExtResource("5_hytfb")]
-position = Vector2(61, 102)
-
-[node name="NPC_State-Machine2" parent="." instance=ExtResource("5_hytfb")]
-position = Vector2(128, 34)
-
-[node name="NPC_State-Machine3" parent="." instance=ExtResource("5_hytfb")]
-position = Vector2(160, 124)
-
-[node name="NPC_State-Machine4" parent="." instance=ExtResource("5_hytfb")]
-position = Vector2(91, 208)
-
-[connection signal="look_for_empty_seat" from="NPC_State-Machine" to="." method="_on_npc_state_machine_look_for_empty_seat"]
-[connection signal="look_for_empty_seat" from="NPC_State-Machine2" to="." method="_on_npc_state_machine_look_for_empty_seat"]
-[connection signal="look_for_empty_seat" from="NPC_State-Machine3" to="." method="_on_npc_state_machine_look_for_empty_seat"]
-[connection signal="look_for_empty_seat" from="NPC_State-Machine4" to="." method="_on_npc_state_machine_look_for_empty_seat"]

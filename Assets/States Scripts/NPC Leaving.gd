@@ -14,6 +14,8 @@ var target_position: Vector2
 func Enter():
 	call_deferred("actor_setup")
 	
+	_NPC.seat = null
+	
 	navigation.path_desired_distance = 4.0
 	navigation.target_desired_distance = 20.0
 	navigation.debug_enabled = true

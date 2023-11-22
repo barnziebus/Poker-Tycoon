@@ -12,11 +12,13 @@ func Enter():
 	_NPC.seat.open = false
 	timer = 10
 	animation_controller()
+	_NPC.position = _NPC.seat.global_position
 	_NPC.velocity = Vector2.ZERO
 
 
 func Exit():
 	_NPC.seat.open = true
+	_NPC.seat = null
 
 
 func Update(delta: float):

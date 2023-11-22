@@ -51,6 +51,7 @@ animations = [{
 radius = 7.07107
 
 [node name="NPC_State-Machine" type="CharacterBody2D"]
+collision_mask = 2
 script = ExtResource("1_uxqr1")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
@@ -60,6 +61,7 @@ animation = &"walk-left"
 
 [node name="FloorCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gj843")
+one_way_collision = true
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_3g5b2")
@@ -98,5 +100,3 @@ offset_right = 58.0
 offset_bottom = -6.0
 text = "State Name"
 fit_content = true
-
-[connection signal="look_for_empty_seat" from="State Machine/NPCIdle" to="." method="_on_npc_idle_look_for_empty_seat"]

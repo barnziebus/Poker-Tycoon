@@ -13,6 +13,8 @@ var target_position: Vector2
 func Enter():
 	target_position = _NPC.seat.global_position
 	navigation.target_position = target_position
+	
+	_NPC.seat.open = false
 
 
 func Exit():
@@ -29,9 +31,7 @@ func Physics_Update(delta: float):
 		
 		if navigation.is_navigation_finished():
 			Transitioned.emit(self, "NPCPlaying")
-		
-		if not _NPC.seat.open:
-			Transitioned.emit(self, "NPCIdle")
+			print('npc is now playing')
 	
 	else:
 		Transitioned.emit(self, "NPCIdle")

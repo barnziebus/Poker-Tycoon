@@ -7,9 +7,7 @@ extends Node2D
 
 @export var map: TileMap
 
-signal chair_is_empty(chair_position)
-
-var open = true
+var open: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,7 +40,6 @@ func _process(delta):
 
 func chair_handler():
 	if open:
-		emit_signal("chair_is_empty", position)
 		map.set_cell(0, map.local_to_map(position), 0, Vector2(0,1))
 	else:
 		map.set_cell(0, map.local_to_map(position), 0, Vector2(1,0))
