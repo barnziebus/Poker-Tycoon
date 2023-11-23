@@ -7,6 +7,7 @@ var respawn = 0.1
 var npc_scene = preload("res://npc_state_machine.tscn")
 var npcs = []
 
+
 func _ready():
 	pass
 
