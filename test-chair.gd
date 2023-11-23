@@ -11,6 +11,7 @@ var open: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("chairs")
 	if chair_direction == "up":
 		sprite.play("up")
 		sprite_chair_back.visible = true
@@ -30,7 +31,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	chair_handler()
+	chair_handler(map)
 	if open:
 		$RichTextLabel.text = "open"
 	else:
@@ -38,11 +39,8 @@ func _process(delta):
 		
 
 
-func chair_handler():
+func chair_handler(map):
 	if open:
 		map.set_cell(0, map.local_to_map(position), 0, Vector2(0,1))
 	else:
 		map.set_cell(0, map.local_to_map(position), 0, Vector2(1,0))
-
-func _on_body_entered(body):
-	print(body, "body")
