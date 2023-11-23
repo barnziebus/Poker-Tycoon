@@ -33,6 +33,10 @@ func Physics_Update(delta: float):
 		Transitioned.emit(self, "NPCLeaving")
 
 
+func Handle_Input(event):
+	pass
+
+
 func animation_controller():
 	var animation_names = sprite.sprite_frames.get_animation_names()
 	if facing == "right" and "playing-right" in animation_names:

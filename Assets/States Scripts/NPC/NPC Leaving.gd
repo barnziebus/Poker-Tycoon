@@ -41,6 +41,10 @@ func Physics_Update(delta: float):
 	animation_handler()
 
 
+func Handle_Input(event):
+	pass
+
+
 func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
 	await get_tree().physics_frame

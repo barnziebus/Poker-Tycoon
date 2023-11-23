@@ -56,6 +56,10 @@ func Physics_Update(delta: float):
 	animation_handler()
 
 
+func Handle_Input(event):
+	pass
+
+
 func animation_handler():
 	if _NPC.velocity > Vector2.ZERO:
 		sprite.play('walk-right')

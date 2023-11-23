@@ -37,6 +37,10 @@ func Physics_Update(delta: float):
 		Transitioned.emit(self, "NPCIdle")
 
 
+func Handle_Input(event):
+	pass
+
+
 func move():
 	var current_agent_position: Vector2 = _NPC.global_position
 	var next_path_position: Vector2 = navigation.get_next_path_position()
